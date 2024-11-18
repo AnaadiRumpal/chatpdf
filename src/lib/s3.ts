@@ -8,15 +8,10 @@ export async function uploadToS3(
       const s3 = new S3({
         region: "ap-south-1",
         credentials: {
-           accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!,
-          secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY!,
+          accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY_ID!,
         },
       });
-      console.log("Environment Variables Check:");
-console.log("NEXT_PUBLIC_S3_ACCESS_KEY_ID:", process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID);
-console.log("NEXT_PUBLIC_S3_SECRET_ACCESS_KEY:", process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY);
-console.log("NEXT_PUBLIC_S3_BUCKET_NAME:", process.env.NEXT_PUBLIC_S3_BUCKET_NAME);
-
 
       const file_key =
         "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
