@@ -1,4 +1,4 @@
-import { Pinecone } from "@pinecone-database/pinecone";  // Use Pinecone directly
+import { Pinecone } from "@pinecone-database/pinecone";
 import { convertToAscii } from "./utils";
 import { getEmbeddings } from "./embeddings";
 
@@ -8,23 +8,18 @@ export async function getMatchesFromEmbeddings(
 ) {
   try {
     const client = new Pinecone({
-      apiKey: process.env.PINECONE_API_KEY!,  // API key
+      apiKey: process.env.PINECONE_API_KEY!,
     });
-
-    // Initialize the Pinecone index and query the namespace
-    const pineconeIndex = await client.index("chatpdf");
+    const pineconeIndex = await client.index("chat-pdf-project-vit");
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-
-    // Perform the query with embeddings
     const queryResult = await namespace.query({
       topK: 5,
       vector: embeddings,
       includeMetadata: true,
     });
-
     return queryResult.matches || [];
   } catch (error) {
-    console.log("Error querying embeddings:", error);
+    console.log("error querying embeddings", error);
     throw error;
   }
 }
@@ -43,6 +38,6 @@ export async function getContext(query: string, fileKey: string) {
   };
 
   let docs = qualifyingDocs.map((match) => (match.metadata as Metadata).text);
-  // Return first 3000 characters of qualifying documents
+  // 5 vectors
   return docs.join("\n").substring(0, 3000);
 }

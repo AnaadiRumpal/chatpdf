@@ -17,6 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+
     <ClerkProvider>
       <Providers>
         <html lang="en">
@@ -25,5 +26,6 @@ export default function RootLayout({
         </html>
       </Providers>
     </ClerkProvider>
+
   );
 }

@@ -27,6 +27,11 @@ export async function POST(req: Request, res: Response) {
       .returning({
         insertedId: chats.id,
       });
+      console.log("chatid" + chat_id);
+      const allIds = chat_id.map(chat => chat.insertedId); // Assuming insertedId is the key for IDs
+      console.log("All created chat IDs:", allIds);
+      console.log("Chat created with ID:", chat_id[0].insertedId); // Log the created chat ID
+
 
     return NextResponse.json(
       {
